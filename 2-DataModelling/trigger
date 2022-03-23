@@ -1,0 +1,17 @@
+const fullDocument = changeEvent.fullDocument;
+console.log(JSON.stringify(changeEvent, null, 2));
+
+const updateDescription = changeEvent.updateDescription;
+let newProduct = {};
+
+if (updateDescription) {
+    const wishlist = updateDescription.updatedField.wishlists; // A document containing updated fields
+    newProduct = wishlist[wishlist.length - 1];
+}
+
+if (newProduct) {
+    const collection = context.services.get("mongodb-atlas").db("mongoshop").collection("products");
+    // item_id is unique
+    const doc = collection.updateOne({ item_id: newProduct.item_id },
+        { $inc: { wishlistCount: 1 } });
+}

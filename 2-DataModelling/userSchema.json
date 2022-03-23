@@ -1,0 +1,33 @@
+{
+    "title": "userSchema",
+    "required": [
+        "firstName",
+        "lastName",
+        "dob",
+        "internalId",
+        "phone"
+    ],
+    "properties": {
+        "firstName": {
+            "bsonType": "string"
+        },
+        "lastName": {
+            "bsonType": "string"
+        },
+        "internalId": {
+            "bsonType": "string"
+        },
+        "dob": {
+            "bsonType": "date"
+        },
+        "phone": {
+            "bsonType": "number"
+        },
+        "email": {
+            "bsonType": "number"
+        },
+        "wishlistedProducts": {
+            "bsonType": "array"
+        }
+    }
+}

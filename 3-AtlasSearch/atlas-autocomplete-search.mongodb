@@ -1,0 +1,60 @@
+// product name autocomplete search index 
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "name": [
+        {
+          "foldDiacritics": false,
+          "maxGrams": 7,
+          "minGrams": 3,
+          "tokenization": "edgeGram",
+          "type": "autocomplete"
+        }
+      ]
+    }
+  }
+}
+// autocomplete query
+{
+  $search:{
+  "index": "product_name_autocomplete",
+  "autocomplete": {
+    "query": "amttz",
+    "path": "name",
+    "tokenOrder": "any",
+    "fuzzy": {
+      "maxEdits": 2
+    }
+  }
+}
+//Create autocompletion for product names 
+//and an aggregation pipeline which returns 10 products based on a partial product name.
+[
+    {
+        '$search': {
+            'index': 'product_name_autocomplete', 
+            'autocomplete': {
+                'query': 'amttz', 
+                'path': 'name', 
+                'tokenOrder': 'any', 
+                'fuzzy': {
+                    'maxEdits': 2
+                }
+            }
+        }
+    }, {
+        '$limit': 10
+    }, {
+        '$project': {
+            'score': {
+                '$meta': 'searchScore'
+            }, 
+            'productName': '$name', 
+            '_id': 0, 
+            'highlights': {
+                '$meta': 'searchHighlights'
+            }
+        }
+    }
+]

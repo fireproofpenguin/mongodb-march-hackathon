@@ -1,0 +1,46 @@
+// Synonyms search index 
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "product_type": {
+        "dynamic": false,
+        "fields": {
+          "value": {
+            "analyzer": "lucene.english",
+            "type": "string"
+          }
+        },
+        "type": "document"
+      }
+    }
+  },
+  "synonyms": [
+    {
+      "analyzer": "lucene.english",
+      "name": "productSynonyms",
+      "source": {
+        "collection": "synonyms"
+      }
+    }
+  ]
+}
+
+// create synonyms collections
+db.createCollection("synonyms")
+db.synonyms.insert({"mappingType":"explicit","input":["carpet"],"synonyms":["rug","RUG"]})
+
+// Build a search pipeline that will return a “rug” when looking for “carpet.”
+[
+    {
+        '$search': {
+            'index': 'synonyms_search', 
+            'text': {
+                'query': 'carpet', 
+                'path': 'product_type.value', 
+                'synonyms': 'productSynonyms'
+            }
+        }
+    }
+]
+

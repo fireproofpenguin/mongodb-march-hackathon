@@ -1,95 +1,112 @@
-// Search Index
-[{$search: {index: 'product_search', text: {query: <query> , path: {wildcard: '*'}}}}]
+// product search index 
 {
-    "mappings": {
-      "dynamic": false,
-      "fields": {
-        "description": {
-          "dynamic": false,
-          "fields": {
-            "en_IN": {
-              "analyzer": "lucene.standard",
-              "multi": {
-                "keywordAnalyzer": {
-                  "analyzer": "lucene.keyword",
-                  "searchAnalyzer": "lucene.keyword",
-                  "type": "string"
-                }
-              },
-              "searchAnalyzer": "lucene.standard",
-              "type": "string"
-            }
-          },
-          "type": "document"
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "description": {
+        "dynamic": false,
+        "fields": {
+          "en_IN": {
+            "analyzer": "lucene.standard",
+            "multi": {
+              "keywordAnalyzer": {
+                "analyzer": "lucene.keyword",
+                "searchAnalyzer": "lucene.keyword",
+                "type": "string"
+              }
+            },
+            "searchAnalyzer": "lucene.standard",
+            "type": "string"
+          }
         },
-        "item_keywords": {
-          "dynamic": false,
-          "fields": {
-            "value": {
-              "analyzer": "lucene.standard",
-              "multi": {
-                "keywordAnalyzer": {
-                  "analyzer": "lucene.keyword",
-                  "searchAnalyzer": "lucene.keyword",
-                  "type": "string"
-                }
-              },
-              "searchAnalyzer": "lucene.standard",
-              "type": "string"
-            }
-          },
-          "type": "document"
+        "type": "document"
+      },
+      "item_keywords": {
+        "dynamic": false,
+        "fields": {
+          "value": {
+            "analyzer": "lucene.standard",
+            "multi": {
+              "keywordAnalyzer": {
+                "analyzer": "lucene.keyword",
+                "searchAnalyzer": "lucene.keyword",
+                "type": "string"
+              }
+            },
+            "searchAnalyzer": "lucene.standard",
+            "type": "string"
+          }
         },
-        "item_name": {
-          "dynamic": false,
-          "fields": {
-            "en_IN": {
-              "analyzer": "lucene.standard",
-              "multi": {
-                "keywordAnalyzer": {
-                  "analyzer": "lucene.keyword",
-                  "searchAnalyzer": "lucene.keyword",
-                  "type": "string"
-                }
-              },
-              "searchAnalyzer": "lucene.standard",
-              "type": "string"
-            }
-          },
-          "type": "document"
+        "type": "document"
+      },
+      "item_name": {
+        "dynamic": false,
+        "fields": {
+          "en_IN": {
+            "analyzer": "lucene.standard",
+            "multi": {
+              "keywordAnalyzer": {
+                "analyzer": "lucene.keyword",
+                "searchAnalyzer": "lucene.keyword",
+                "type": "string"
+              }
+            },
+            "searchAnalyzer": "lucene.standard",
+            "type": "string"
+          }
         },
-        "main_description": {
-          "dynamic": false,
-          "fields": {
-            "en_IN": {
-              "analyzer": "lucene.standard",
-              "multi": {
-                "keywordAnalyzer": {
-                  "analyzer": "lucene.keyword",
-                  "searchAnalyzer": "lucene.keyword",
-                  "type": "string"
-                }
-              },
-              "searchAnalyzer": "lucene.standard",
-              "type": "string"
-            }
-          },
-          "type": "document"
-        }
+        "type": "document"
+      },
+      "main_description": {
+        "dynamic": false,
+        "fields": {
+          "en_IN": {
+            "analyzer": "lucene.standard",
+            "multi": {
+              "keywordAnalyzer": {
+                "analyzer": "lucene.keyword",
+                "searchAnalyzer": "lucene.keyword",
+                "type": "string"
+              }
+            },
+            "searchAnalyzer": "lucene.standard",
+            "type": "string"
+          }
+        },
+        "type": "document"
+      },
+      "name": {
+        "analyzer": "lucene.standard",
+        "type": "string"
+      },
+      "product_type": {
+        "dynamic": false,
+        "fields": {
+          "value": {
+            "analyzer": "lucene.standard",
+            "type": "string"
+          }
+        },
+        "type": "document"
+      },
+      "promotionStatus": {
+        "analyzer": "lucene.standard",
+        "type": "string"
       }
     }
   }
+}
 
-// Search Pipeline
+/* Build a search pipeline that uses $search to query for products across 
+the name field and returns the top 12 matches. 
+*/
 [
   {
     "$search": {
       "index": "product_search",
       "text": {
         "query": "Amazon",
-        "path": [
-          "item_name.en_IN"
-        ],
+        "path":  "name",
         "fuzzy": {
           "maxEdits": 2
         }
@@ -99,4 +116,107 @@
   {
     "$limit": 12
   }
+]
+/*
+Expand your search pipeline to search across multiple fields allowing for misspelled words.
+ */
+
+ [
+    {
+        '$search': {
+            'index': 'product_search', 
+            'text': {
+                'query': 'Amazon', 
+                'path': {
+                    'wildcard': '*'
+                }, 
+                'fuzzy': {
+                    'maxEdits': 2
+                }
+            }
+        }
+    }
+]
+
+
+/*
+Build a search pipeline that combines 2 or more search operators. 
+*/
+
+[
+    {
+        '$search': {
+            'index': 'product_search', 
+            'compound': {
+                'must': [
+                    {
+                        'text': {
+                            'query': 'amazon', 
+                            'path': 'item_keywords.value'
+                        }
+                    }
+                ], 
+                'mustNot': [
+                    {
+                        'text': {
+                            'query': 'salimo', 
+                            'path': 'item_keywords.value'
+                        }
+                    }
+                ]
+            }
+        }
+    }
+]
+
+/*
+There are 16 *sponsored* products in the data set. 
+Build a compound search query to find these items and increase their score so they are returned first.
+ */
+[
+    {
+        '$search': {
+            'index': 'product_search', 
+            'compound': {
+                'filter': [
+                    {
+                        'text': {
+                            'query': 'Gith', 
+                            'path': {
+                                'wildcard': '*'
+                            }, 
+                            'fuzzy': {
+                                'maxEdits': 2
+                            }
+                        }
+                    }
+                ], 
+                'should': [
+                    {
+                        'text': {
+                            'query': 'platinum', 
+                            'path': 'promotionStatus', 
+                            'score': {
+                                'boost': {
+                                    'value': 5
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }, {
+        '$project': {
+            '_id': 0, 
+            'name': 1, 
+            'price': 1, 
+            'category': 1, 
+            'main_image_url': 1, 
+            'promotionStatus': 1, 
+            'score': {
+                '$meta': 'searchScore'
+            }
+        }
+    }
 ]

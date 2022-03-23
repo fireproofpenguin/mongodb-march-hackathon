@@ -1,0 +1,46 @@
+db.createCollection( "users", {
+   validator: { $jsonSchema: {
+      bsonType: "object",
+      required: [ "firstName", "lastName", "dob", "internalId", "phone" ],
+      properties: {
+         firstName: {
+            bsonType: "string",
+            description: "user first name"
+         },
+         lastName: {
+            bsonType : "string",
+            description: "user last name"
+         },
+         internalId: {
+            enum: "string",
+            description: "internal ID value"
+         },
+         dob: {
+            bsonType: "date",
+            description: "user date of birth"
+         },
+         phone: {
+            bsonType : "number",
+            description: "User contact phone"
+         },
+         wishlist: {
+            enum: "array",
+            description: "Array of Product IDs"
+         },
+         email: {
+            bsonType : "string",
+            pattern : "@mongodb\.com$",
+            description: "user email, should match the regular expression pattern"
+         },
+      }
+   } }
+} )
+
+db.users.insertOne({
+    "firstName": "test", 
+    "lastName": "test",
+    "dob": "12/02/1993",
+    "internalId": "AB0123",
+    "phone": "12345678"
+})
+

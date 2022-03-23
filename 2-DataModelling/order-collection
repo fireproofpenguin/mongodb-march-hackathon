@@ -1,0 +1,31 @@
+db.createCollection("orders", {
+   validator: { $jsonSchema: {
+      bsonType: "object",
+      required: [ "status", "products" ],
+      properties: {
+         status: {
+            enum: [ "New", "UnderReview", "Completed", "Cancelled" ],
+            description: "can only be one of the enum values"
+         }  ,       
+         products: {
+            bsonType : "array",
+            description: "list of products ordered"
+         },
+         createdAt: {
+            enum: "date",
+            description: "time when order was placed"
+         },
+         customerInternalId: {
+            bsonType: "string",
+            description: "ID for customer who placed order"
+         }
+      }
+   } }
+} )
+
+db.orders.insertOne({
+    "status": "New", 
+    "products": [B07Y2CNMZN],
+    "createdAt": "23/03/2022",
+    "customerInternalId": "AB0123",
+})

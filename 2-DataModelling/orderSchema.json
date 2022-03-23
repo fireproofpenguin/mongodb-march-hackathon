@@ -1,0 +1,21 @@
+{
+    "title": "orderSchema",
+    "required": [
+        "status",
+        "products"
+    ],
+    "properties": {
+        "status": {
+            "bsonType": "string"
+        },
+        "customerInternalId": {
+            "bsonType": "string"
+        },
+        "createdAt": {
+            "bsonType": "date"
+        },
+        "products": {
+            "bsonType": "array"
+        }
+    }
+}
