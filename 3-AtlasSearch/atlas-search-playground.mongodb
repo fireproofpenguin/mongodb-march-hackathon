@@ -1,0 +1,102 @@
+// Search Index
+[{$search: {index: 'product_search', text: {query: <query> , path: {wildcard: '*'}}}}]
+{
+    "mappings": {
+      "dynamic": false,
+      "fields": {
+        "description": {
+          "dynamic": false,
+          "fields": {
+            "en_IN": {
+              "analyzer": "lucene.standard",
+              "multi": {
+                "keywordAnalyzer": {
+                  "analyzer": "lucene.keyword",
+                  "searchAnalyzer": "lucene.keyword",
+                  "type": "string"
+                }
+              },
+              "searchAnalyzer": "lucene.standard",
+              "type": "string"
+            }
+          },
+          "type": "document"
+        },
+        "item_keywords": {
+          "dynamic": false,
+          "fields": {
+            "value": {
+              "analyzer": "lucene.standard",
+              "multi": {
+                "keywordAnalyzer": {
+                  "analyzer": "lucene.keyword",
+                  "searchAnalyzer": "lucene.keyword",
+                  "type": "string"
+                }
+              },
+              "searchAnalyzer": "lucene.standard",
+              "type": "string"
+            }
+          },
+          "type": "document"
+        },
+        "item_name": {
+          "dynamic": false,
+          "fields": {
+            "en_IN": {
+              "analyzer": "lucene.standard",
+              "multi": {
+                "keywordAnalyzer": {
+                  "analyzer": "lucene.keyword",
+                  "searchAnalyzer": "lucene.keyword",
+                  "type": "string"
+                }
+              },
+              "searchAnalyzer": "lucene.standard",
+              "type": "string"
+            }
+          },
+          "type": "document"
+        },
+        "main_description": {
+          "dynamic": false,
+          "fields": {
+            "en_IN": {
+              "analyzer": "lucene.standard",
+              "multi": {
+                "keywordAnalyzer": {
+                  "analyzer": "lucene.keyword",
+                  "searchAnalyzer": "lucene.keyword",
+                  "type": "string"
+                }
+              },
+              "searchAnalyzer": "lucene.standard",
+              "type": "string"
+            }
+          },
+          "type": "document"
+        }
+      }
+    }
+  }
+
+// Search Pipeline
+[
+  {
+    "$search": {
+      "index": "product_search",
+      "text": {
+        "query": "Amazon",
+        "path": [
+          "item_name.en_IN"
+        ],
+        "fuzzy": {
+          "maxEdits": 2
+        }
+      }
+    }
+  },
+  {
+    "$limit": 12
+  }
+]

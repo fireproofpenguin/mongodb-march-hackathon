@@ -1,0 +1,22 @@
+// - List top 10 products based on score and number of reviews
+
+[
+  {
+    "$group": {
+      "_id": "$asin",
+      "reviewCount": {
+        "$count": {}
+      },
+      "reviewAverage": {
+        "$avg": "$overall"
+      }
+    }
+  },
+  {
+    "$sort": {
+      "reviewAverage": -1,
+      "reviewCount": -1
+    }
+  }
+]
+

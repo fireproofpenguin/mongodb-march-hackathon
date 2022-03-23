@@ -1,0 +1,276 @@
+{
+  "fields": [
+    {
+      "name": "_id",
+      "path": "_id",
+      "count": 1,
+      "types": [
+        {
+          "name": "ObjectID",
+          "bsonType": "ObjectID",
+          "path": "_id",
+          "count": 1,
+          "values": [
+            "623b13e9a872753dd995573b"
+          ],
+          "total_count": 0,
+          "probability": 1,
+          "unique": 1,
+          "has_duplicates": false
+        }
+      ],
+      "total_count": 1,
+      "type": "ObjectID",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "customer",
+      "path": "customer",
+      "count": 1,
+      "types": [
+        {
+          "name": "Document",
+          "bsonType": "Document",
+          "path": "customer",
+          "count": 1,
+          "fields": [
+            {
+              "name": "_id",
+              "path": "customer._id",
+              "count": 1,
+              "types": [
+                {
+                  "name": "String",
+                  "bsonType": "String",
+                  "path": "customer._id",
+                  "count": 1,
+                  "values": [
+                    "A3ABJ7F3WMZFM7"
+                  ],
+                  "total_count": 0,
+                  "probability": 1,
+                  "unique": 1,
+                  "has_duplicates": false
+                }
+              ],
+              "total_count": 1,
+              "type": "String",
+              "has_duplicates": false,
+              "probability": 1
+            },
+            {
+              "name": "firstName",
+              "path": "customer.firstName",
+              "count": 1,
+              "types": [
+                {
+                  "name": "String",
+                  "bsonType": "String",
+                  "path": "customer.firstName",
+                  "count": 1,
+                  "values": [
+                    "Lindsey Ann"
+                  ],
+                  "total_count": 0,
+                  "probability": 1,
+                  "unique": 1,
+                  "has_duplicates": false
+                }
+              ],
+              "total_count": 1,
+              "type": "String",
+              "has_duplicates": false,
+              "probability": 1
+            }
+          ],
+          "total_count": 0,
+          "probability": 1
+        }
+      ],
+      "total_count": 1,
+      "type": "Document",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "orderStatus",
+      "path": "orderStatus",
+      "count": 1,
+      "types": [
+        {
+          "name": "String",
+          "bsonType": "String",
+          "path": "orderStatus",
+          "count": 1,
+          "values": [
+            "SHIPPED"
+          ],
+          "total_count": 0,
+          "probability": 1,
+          "unique": 1,
+          "has_duplicates": false
+        }
+      ],
+      "total_count": 1,
+      "type": "String",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "products",
+      "path": "products",
+      "count": 1,
+      "types": [
+        {
+          "name": "Array",
+          "bsonType": "Array",
+          "path": "products",
+          "count": 1,
+          "types": [
+            {
+              "name": "String",
+              "bsonType": "String",
+              "path": "products",
+              "count": 1,
+              "values": [
+                "B00074CGS8"
+              ],
+              "total_count": 0,
+              "probability": 1,
+              "unique": 1,
+              "has_duplicates": false
+            }
+          ],
+          "lengths": [
+            1
+          ],
+          "total_count": 1,
+          "probability": 1,
+          "average_length": 1
+        }
+      ],
+      "total_count": 1,
+      "type": "Array",
+      "has_duplicates": false,
+      "probability": 1
+    }
+  ],
+  "count": 1
+}
+
+{
+  "fields": [
+    {
+      "name": "_id",
+      "path": "_id",
+      "count": 1,
+      "types": [
+        {
+          "name": "ObjectID",
+          "bsonType": "ObjectID",
+          "path": "_id",
+          "count": 1,
+          "values": [
+            "623b1874a872753dd995574b"
+          ],
+          "total_count": 0,
+          "probability": 1,
+          "unique": 1,
+          "has_duplicates": false
+        }
+      ],
+      "total_count": 1,
+      "type": "ObjectID",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "firstName",
+      "path": "firstName",
+      "count": 1,
+      "types": [
+        {
+          "name": "String",
+          "bsonType": "String",
+          "path": "firstName",
+          "count": 1,
+          "values": [
+            "Sam"
+          ],
+          "total_count": 0,
+          "probability": 1,
+          "unique": 1,
+          "has_duplicates": false
+        }
+      ],
+      "total_count": 1,
+      "type": "String",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "lastName",
+      "path": "lastName",
+      "count": 1,
+      "types": [
+        {
+          "name": "String",
+          "bsonType": "String",
+          "path": "lastName",
+          "count": 1,
+          "values": [
+            "Gerrard"
+          ],
+          "total_count": 0,
+          "probability": 1,
+          "unique": 1,
+          "has_duplicates": false
+        }
+      ],
+      "total_count": 1,
+      "type": "String",
+      "has_duplicates": false,
+      "probability": 1
+    },
+    {
+      "name": "wishlistedItems",
+      "path": "wishlistedItems",
+      "count": 1,
+      "types": [
+        {
+          "name": "Array",
+          "bsonType": "Array",
+          "path": "wishlistedItems",
+          "count": 1,
+          "types": [
+            {
+              "name": "String",
+              "bsonType": "String",
+              "path": "wishlistedItems",
+              "count": 1,
+              "values": [
+                "B00074CGS8"
+              ],
+              "total_count": 0,
+              "probability": 1,
+              "unique": 1,
+              "has_duplicates": false
+            }
+          ],
+          "lengths": [
+            1
+          ],
+          "total_count": 1,
+          "probability": 1,
+          "average_length": 1
+        }
+      ],
+      "total_count": 1,
+      "type": "Array",
+      "has_duplicates": false,
+      "probability": 1
+    }
+  ],
+  "count": 1
+}

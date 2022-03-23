@@ -46,9 +46,9 @@ A frontend application will be hosted on GitHub and ready for you to fork.
 1. Create a free Atlas account at [https://cloud.mongodb.com/](https://cloud.mongodb.com/)
 2. Create a free M0 cluster and follow the steps to add a database user
 3. Clone the repo
-    ```sh
-    git clone https://github.com/jamesmilesmdb/atlas-search-hackathon-22.git
-    ```
+   ```sh
+   git clone https://github.com/jamesmilesmdb/atlas-search-hackathon-22.git
+   ```
 4. Load the provided dataset
    Unzip the file `mongoshop-data.zip` from this repository and run the following command.
    You can get the `mongorestore` binary utility from [here](https://www.mongodb.com/try/download/database-tools)
@@ -59,10 +59,10 @@ mongorestore --uri "mongodb+srv://username:password@your-atlas-uri.net/" /dump
 
 5. Download and install MongoDB Compass
 
-    Unzip the file `mongoshop-data.zip` from this repository and run the following command.
-    You can download MongoDB Compass from [here](https://www.mongodb.com/try/download/compass)
+   Unzip the file `mongoshop-data.zip` from this repository and run the following command.
+   You can download MongoDB Compass from [here](https://www.mongodb.com/try/download/compass)
 
-    We will use MongoDB Compass to explore the data and create aggregation pipelines.
+   We will use MongoDB Compass to explore the data and create aggregation pipelines.
 
 6. (Optional) Install the MongoDB Visual Studio Code extension from [https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
    [![Vscode Screen Shot][vscode-screenshot]](https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode)
@@ -71,8 +71,8 @@ mongorestore --uri "mongodb+srv://username:password@your-atlas-uri.net/" /dump
 
 ## Hackathon Challenges
 
--   Analytics (Aggregation Framework, MQL)
-    -   [ ] List top 10 products based on score and number of reviews
+- Analytics (Aggregation Framework, MQL) 
+    - [ ] List top 10 products based on score and number of reviews
     -   [ ] List 10 products where most questions have a no answer
     -   [ ] List top 10 most polarising products with highest numbers of negative and positive scores while having the least scores in the middle
 -   Data Modelling (Users, Orders, Wishlist)
@@ -80,7 +80,6 @@ mongorestore --uri "mongodb+srv://username:password@your-atlas-uri.net/" /dump
     -   [ ] Add a field for each document representing how often it was added to a wishlist
     -   [ ] Create a function which adds a product to the users wishlist and updates the count how often it was added to a wishlist (demonstrate triggers usage)
 -   Atlas Search (Autocomplete, Compound, Facets, Multi)
-
     -   [ ] Build a search pipeline that uses $search to query for products across the name field and returns the top 12 matches
     -   [ ] Expand your search pipeline to search across multiple fields allowing for misspelled words
     -   [ ] Build a search pipeline that combines 2 or more search operators
@@ -130,3 +129,4 @@ Artem Adams - [artem.adams@mongodb.com](mailto:artem.adams@mongodb.com)
 
 [product-screenshot]: https://webimages.mongodb.com/_com_assets/cms/ktxaqsnnbqbx3o876-search_Slalom2.svg?ixlib=js-3.5.1&auto=format%2Ccompress&w=594
 [vscode-screenshot]: https://github.com/mongodb-js/vscode/raw/main/resources/screenshots/query-translator.png
+```
