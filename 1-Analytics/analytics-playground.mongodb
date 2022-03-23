@@ -1,22 +1,71 @@
-// - List top 10 products based on score and number of reviews
-
-[
+use('mongoshop');    
+    //  List top 10 products based on score and number of reviews
+const aggregationTop10Reviews = [
   {
-    "$group": {
-      "_id": "$asin",
-      "reviewCount": {
-        "$count": {}
-      },
-      "reviewAverage": {
-        "$avg": "$overall"
+    '$group': {
+      '_id': '$asin', 
+      'reviewCount': {
+        '$count': {}
+      }, 
+      'reviewAverage': {
+        '$avg': '$overall'
       }
+    }
+  }, {
+    '$sort': {
+      'reviewAverage': -1, 
+      'reviewCount': -1
+    }
+  }, {
+    '$lookup': {
+      'from': 'products', 
+      'localField': '_id', 
+      'foreignField': 'item_id', 
+      'as': 'productInfo'
+    }
+  }, {
+    '$limit': 10
+  }
+]
+db.reviews.aggregate(aggregationTop10Reviews)
+
+
+//  List 10 products where most questions have a no answer
+
+const aggregationTop10WithNoAnswers = [
+  {
+    '$match': {
+      'question_type': 'yes-no', 
+      'answer_aggregated': 'no'
+    }
+  }, {
+    '$group': {
+      '_id': '$asin', 
+      'noAnswersCount': {
+        '$count': {}
+      }
+    }
+  }, {
+    '$sort': {
+      'noAnswersCount': -1
+    }
+  }, 
+   {
+    '$lookup': {
+      'from': 'products', 
+      'localField': '_id', 
+      'foreignField': 'item_id', 
+      'as': 'productInfo'
     }
   },
   {
-    "$sort": {
-      "reviewAverage": -1,
-      "reviewCount": -1
-    }
+    '$limit': 1
   }
-]
+];
+
+db.qa.aggregate(aggregationTop10WithNoAnswers);
+
+
+// List top 10 most polarising products with highest numbers of negative and positive scores while having the least scores in the middle
+
 
